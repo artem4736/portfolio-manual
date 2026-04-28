@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-key="page-title">Резюме — Артем Шевченко</title>
+
+  <script>
+    (function(){
+      try {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch(e){}
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --border: #d8efff;
+      --text: #0f172a;
+      --muted: #374151;
+      --accent: #7cc9ff;
+      --accent-hover: #56b4ff;
+    }
+    .dark {
+      --bg: #0b1220;
+      --surface: #111827;
+      --border: #1f2937;
+      --text: #e6eef8;
+      --muted: #9aa6b2;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      transition: background-color .35s ease, color .35s ease;
+    }
+
+    header { background: var(--surface); transition: background-color .35s ease; }
+    a { color: var(--accent); text-decoration: none; transition: color .25s ease; }
+    a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+   .theme-btn, .lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;               
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;      
+  font-weight: 500;          
+  font-size: 0.6rem;       
+  line-height: 1; 
+  padding: 0;
+}           
+
+.theme-btn:hover, .lang-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.theme-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.8;
+  transition: opacity 0.25s ease;
+}
+
+.icon-visible { display: inline; }
+.icon-hidden { display: none; }
+
+    .section {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 3rem 1rem;
+      max-width: 75rem;
+      width: 100%;
+      text-align: justify;
+      transition: background-color .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+    .section-card:hover {
+      border-color: var(--accent-hover);
+      box-shadow: 0 0 14px rgba(37, 99, 235, 0.25);
+    }
+
+    .award-img {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      object-fit: cover;
+      width: 100%;
+      height: 180px;
+      transition: transform 0.25s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .award-img:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      z-index: 70;
+    }
+    .burger span {
+      height: 3px;
+      background: var(--text);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    @media(max-width: 767px) {
+  .burger {
+    display: flex;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--surface);
+    position: fixed;
+    top: 64px;
+    left: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    padding: 14px 18px; /* більше простору всередині меню */
+    z-index: 60;
+    min-width: 200px; /* трохи ширше для зручності */
+  }
+
+  nav .mobile-menu.show {
+    display: flex;
+  }
+
+  /* Відстань між пунктами меню */
+  nav .mobile-menu a {
+    display: block;
+    padding: 12px 0; /* додає вертикальні відступи */
+    font-size: 1rem;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+
+  nav .mobile-menu a:last-child {
+    border-bottom: none; /* прибираємо лінію після останнього пункту */
+  }
+
+  nav .mobile-menu a:hover {
+    color: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+
+  /* Приховуємо основне горизонтальне меню */
+  nav ul.desktop-menu {
+    display: none;
+  }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <header class="fixed top-0 left-0 w-full shadow z-50">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-4 relative">
+      <div class="flex items-center">
+        <div id="burger" class="burger md:hidden mr-3" aria-label="Відкрити меню">
+          <span></span><span></span><span></span>
+        </div>
+        <ul class="desktop-menu hidden md:flex items-center gap-6 text-sm">
+          <li><a data-key="nav-home" href="#home">Головна</a></li>
+          <li><a data-key="nav-about" href="#about">Про себе</a></li>
+          <li><a data-key="nav-edu" href="#projects">Освіта</a></li>
+          <li><a data-key="nav-exp" href="#experience">Досвід</a></li>
+          <li><a data-key="nav-skill" href="#skills">Навички</a></li>
+          <li><a data-key="nav-contact" href="#contact">Контакти</a></li>
+        </ul>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="langToggle" class="lang-btn text-sm font-semibold">EN</button>
+        <button id="themeToggle" class="theme-btn" aria-label="Перемкнути тему">
+          <svg id="moon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 icon-visible" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+          <svg id="sun" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 icon-hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2M5 12H3m18 0h-2M6.343 6.343l-1.414-1.414M19.071 19.071l-1.414-1.414M6.343 17.657l-1.414 1.414M19.071 4.929l-1.414 1.414M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="mobile-menu md:hidden text-sm">
+        <li><a data-key="nav-home" href="#home">Головна</a></li>
+        <li><a data-key="nav-about" href="#about">Про себе</a></li>
+        <li><a data-key="nav-edu" href="#projects">Освіта</a></li>
+        <li><a data-key="nav-exp" href="#experience">Досвід</a></li>
+        <li><a data-key="nav-skill" href="#skills">Навички</a></li>
+        <li><a data-key="nav-contact" href="#contact">Контакти</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pt-28">
+
+    <section id="home" class="section">
+      <div class="section-card text-center">
+        <div class="mx-auto w-56 h-56 rounded-full overflow-hidden mb-6 shadow-lg">
+          <img src="assets/img/photo.jpg" alt="Фото" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <h1 data-key="home-name" class="text-3xl md:text-4xl font-bold mb-2">Артем Шевченко</h1>
+        <p data-key="home-desc" class="text-lg font-semibold mb-4">Професійний шахіст та студент-програміст</p>
+      </div>
+    </section>
+
+    <!-- Про себе -->
+    <section id="about" class="section">
+      <div class="section-card">
+        <h2 data-key="about-title" class="text-3xl font-semibold mb-4 text-center">Про себе</h2>
+        <p data-key="about-text" class="leading-relaxed max-w-3xl mx-auto">
+          Привіт! Я — Артем, професійний шахіст та студент-програміст. 
+          Поєдную аналітичне мислення шахів із логікою програмування, створюючи ефективні та продумані рішення як у коді, так і на шахівниці. 
+          Навчаюся новим технологіям, розвиваю навички у веброзробці та прагну поєднати інтелектуальну дисципліну шахів із творчим підходом у технологіях.
+        </p>
+      </div>
+    </section>
+
+    <!-- Освіта -->
+    <section id="projects" class="section">
+      <div class="section-card">
+        <h2 data-key="edu-title" class="text-3xl font-semibold mb-4 text-center">Освіта</h2>
+        <p data-key="edu-uni" class="leading-relaxed max-w-3xl mx-auto">
+          2023–теперішній час — Херсонський державний університет, спеціальність «Комп’ютерні науки».
+        </p>
+        <br>
+        <p data-key="edu-school" class="leading-relaxed max-w-3xl mx-auto">
+          2012–2023 — Херсонська загальноосвітня школа І–ІІІ ст. №44, закінчив із золотою медаллю.
+        </p>
+      </div>
+    </section>
+
+    <!-- Досвід -->
+    <section id="experience" class="section">
+      <div class="section-card">
+        <h2 data-key="exp-title" class="text-3xl font-semibold mb-6 text-center">Досвід</h2>
+
+        <div class="space-y-6 max-w-4xl mx-auto">
+          <div class="p-6 rounded-2xl shadow border border-[var(--border)] hover:border-[var(--accent)] transition">
+            <h3 data-key="exp-chess-title" class="text-2xl font-semibold mb-2">♟️ Шахи</h3>
+            <p data-key="exp-chess-text">
+              Маю 12-річний досвід гри в шахи, I спортивний розряд. 
+              Учасник і призер міських, обласних, всеукраїнських та міжнародних турнірів. 
+              За роки гри здобув понад 30 медалей, грамот і кубків, серед яких перемоги та призові місця на всеукраїнських та міжнародних змаганнях. 
+              Нижче представлені деякі найбільш важливі для мене нагороди:
+            </p>
+            <div class="mt-4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+              <img src="assets/img/award1.jpg" class="award-img" alt="">
+              <img src="assets/img/award2.jpg" class="award-img" alt="">
+              <img src="assets/img/award3.jpg" class="award-img" alt="">
+              <img src="assets/img/award4.jpg" class="award-img" alt="">
+              <img src="assets/img/award5.jpg" class="award-img" alt="">
+              <img src="assets/img/award6.jpg" class="award-img" alt="">
+              <img src="assets/img/award7.jpg" class="award-img" alt="">
+              <img src="assets/img/award8.jpg" class="award-img" alt="">
+              <img src="assets/img/award9.jpg" class="award-img" alt="">
+              <img src="assets/img/award10.jpg" class="award-img" alt="">
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl shadow border border-[var(--border)] hover:border-[var(--accent)] transition">
+            <h3 data-key="exp-code-title" class="text-2xl font-semibold mb-2">💻 Програмування</h3>
+            <p data-key="exp-code-text">
+              Досвід роботи з Python, C++, SQL, PHP, HTML/CSS. Реалізую навчальні та курсові проєкти, включаючи систему нагадувань та інформаційні сервіси.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Навички -->
+    <section id="skills" class="section">
+      <div class="section-card">
+        <h2 data-key="skills-title" class="text-3xl font-semibold mb-8 text-center">Навички</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left max-w-5xl mx-auto">
+          <div class="p-6 rounded-2xl shadow border border-[var(--border)] hover:border-[var(--accent)] hover:shadow-lg transition">
+            <h3 data-key="skills-tech" class="text-xl font-semibold mb-3">💻 Технічні</h3>
+            <ul class="space-y-1 text-[var(--text)]">
+              <li data-key="skills-tech1">Python, PHP, C++</li>
+              <li data-key="skills-tech2">HTML / CSS, SQL</li>
+              <li data-key="skills-tech3">Git / GitHub</li>
+              <li data-key="skills-tech4">Алгоритми та структури даних</li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl shadow border border-[var(--border)] hover:border-[var(--accent)] hover:shadow-lg transition">
+            <h3 data-key="skills-chess" class="text-xl font-semibold mb-3">♟️ Шахові</h3>
+            <ul class="space-y-1 text-[var(--text)]">
+              <li data-key="skills-chess4">Рейтинг FIDE: 
+               
+              </li>
+              <li>  <a href="https://ratings.fide.com/profile/34183680" target="_blank">ratings.fide.com/profile/34183680</a></li>
+              <li data-key="skills-chess1">Стратегічне мислення</li>
+              <li data-key="skills-chess2">Аналіз і оцінка позицій</li>
+              <li data-key="skills-chess3">Аналітика партій</li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl shadow border border-[var(--border)] hover:border-[var(--accent)] hover:shadow-lg transition">
+            <h3 data-key="skills-lang" class="text-xl font-semibold mb-3">🌐 Мовні</h3>
+            <ul class="space-y-1 text-[var(--text)]">
+              <li data-key="skills-lang1">Українська — рідна</li>
+              <li data-key="skills-lang2">Англійська — вільно</li>
+              <li data-key="skills-lang3">Російська — вільно</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакти -->
+    <section id="contact" class="section">
+      <div class="section-card text-center">
+        <h2 data-key="contact-title" class="text-3xl font-semibold mb-4">Контакти</h2>
+        <p>Email: <a href="mailto:saa75752@gmail.com">saa75752@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/artem-shevchenko-661087360" target="_blank">linkedin.com/in/artem-shevchenko-661087360</a></p>
+        <p>Telegram: <a href="https://t.me/artem_chess" target="_blank">@artem_chess</a></p>
+      </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-80">
+    <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl">
+  </div>
+
+  <script>
+    // Темна тема
+    const themeBtn=document.getElementById('themeToggle');
+    const sun=document.getElementById('sun');
+    const moon=document.getElementById('moon');
+    const root=document.documentElement;
+    function syncIcons(){
+      const dark=root.classList.contains('dark');
+      sun.classList.toggle('icon-visible',dark);
+      sun.classList.toggle('icon-hidden',!dark);
+      moon.classList.toggle('icon-visible',!dark);
+      moon.classList.toggle('icon-hidden',dark);
+    }
+    themeBtn.onclick=()=>{const d=root.classList.toggle('dark');localStorage.setItem('theme',d?'dark':'light');syncIcons();};
+    syncIcons();
+
+    // Бургер
+    const burger = document.getElementById('burger');
+const menu = document.querySelector('nav .mobile-menu');
+
+burger.onclick = e => {
+  e.stopPropagation();
+  menu.classList.toggle('show');
+};
+
+document.addEventListener('click', e => {
+  if (!menu.contains(e.target) && !burger.contains(e.target))
+    menu.classList.remove('show');
+});
+
+// ✅ ДОДАНО: закриття меню при кліку на пункт
+menu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    menu.classList.remove('show');
+  });
+});
+  
+    // Фото
+    const imgs=document.querySelectorAll('.award-img');
+    const lightbox=document.getElementById('lightbox');
+    const lbImg=document.getElementById('lightbox-img');
+    imgs.forEach(i=>i.addEventListener('click',()=>{lbImg.src=i.src;lightbox.classList.remove('hidden');}));
+    lightbox.addEventListener('click',()=>lightbox.classList.add('hidden'));
+
+    // Мова
+    const langBtn=document.getElementById('langToggle');
+    let currentLang='ua';
+    const translations={
+      en:{
+        "page-title":"Resume — Artem Shevchenko",
+        "home-name":"Artem Shevchenko",
+        "nav-home":"Home","nav-about":"About","nav-edu":"Education","nav-exp":"Experience","nav-skill":"Skills","nav-contact":"Contacts",
+        "home-desc":"Professional chess player and programming student",
+        "about-title":"About Me",
+        "about-text":"Hello! I'm Artem, a professional chess player and programming student. I combine the analytical mindset of chess with programming logic to create efficient solutions both in code and on the chessboard.",
+        "edu-title":"Education",
+        "edu-uni":"2023–present — Kherson State University, majoring in Computer Science.",
+        "edu-school":"2012–2023 — Kherson Secondary School No. 44, graduated with a gold medal.",
+        "exp-title":"Experience",
+        "exp-chess-title":"♟️ Chess",
+        "exp-chess-text":"12 years of experience in chess (1st category). Participant and prize-winner of city, regional, national, and international tournaments. Over 30 medals, diplomas, and cups — here are some of my best achievements:",
+        "exp-code-title":"💻 Programming",
+        "exp-code-text":"Experience with Python, C++, SQL, PHP, HTML/CSS. Created academic and course projects, including reminder systems and information services.",
+        "skills-title":"Skills",
+        "skills-tech":"💻 Technical",
+        "skills-tech4": "Algorithms and data structures",
+        "skills-chess": "♟️ Chess",
+        "skills-chess1": "Strategic thinking",
+        "skills-chess2": "Analysis and evaluation of positions",
+        "skills-chess3": "Party analytics",
+        "skills-chess4": "FIDE rating: ",
+        "skills-lang": "🌐 Languages",
+        "skills-lang1": "Ukrainian — native",
+        "skills-lang2": "Russian — fluent",
+        "skills-lang3": "English — fluent",
+        "contact-title": "Contacts"
+      },
+      ua:{}
+    };
+    for(let k in translations.en){
+      const el=document.querySelector(`[data-key="${k}"]`);
+      translations.ua[k]=el?.innerText||'';
+    }
+
+    langBtn.onclick=()=>{
+      currentLang=currentLang==='ua'?'en':'ua';
+      langBtn.innerText=currentLang==='ua'?'EN':'UA';
+      document.querySelectorAll('[data-key]').forEach(el=>{
+        const key=el.dataset.key;
+        if(translations[currentLang][key]){
+          el.innerText=translations[currentLang][key];
+        }
+      });
+      document.title = translations[currentLang]["page-title"];
+    };
+  </script>
+
+</body>
+</html>
+
+
+

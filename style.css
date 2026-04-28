@@ -1,0 +1,126 @@
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --border: #cfe6ff;
+  --text: #0f172a;
+  --muted: #374151;
+  --accent: #2563eb;
+  --accent-hover: #1e40af;
+}
+.dark {
+  --bg: #0b1220;
+  --surface: #111827;
+  --border: #1f2937;
+  --text: #e6eef8;
+  --muted: #9aa6b2;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color .35s ease, color .35s ease;
+}
+
+header { background: var(--surface); transition: background-color .35s ease; }
+
+a { color: var(--accent); text-decoration: none; transition: color .25s ease; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease;
+}
+.theme-btn:hover { background: var(--accent); color: white; }
+
+.icon-hidden { display: none !important; }
+.icon-visible { display: inline-block !important; }
+
+.section {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  border-radius: 0;
+  padding: 3rem 1rem;
+  max-width: 75rem;
+  width: 100%;
+  text-align: justify;
+  transition: background-color .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.section-card:hover { border-color: var(--accent); }
+
+main > section + section { margin-top: 0; }
+
+/* Бургер меню */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.burger span {
+  height: 3px;
+  background: var(--text);
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+@media(max-width: 767px) {
+  .burger { display: flex; }
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background: var(--surface);
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  nav ul.show { display: flex; }
+  header nav { display: flex; justify-content: space-between; align-items: center; }
+  header nav > .flex { order: -1; flex-direction: row; gap: 8px; }
+}
+
+/* Фото грамот */
+.award-img {
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  object-fit: cover;
+  width: 100%;
+  height: 180px;
+  transition: transform 0.25s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.award-img:hover {
+  transform: scale(1.05);
+  border-color: var(--accent);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+#experience .grid {
+  justify-items: center;
+  align-items: center;
+  gap: 6px;
+}
